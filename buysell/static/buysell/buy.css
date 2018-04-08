@@ -1,0 +1,43 @@
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #006666;
+}
+
+#buy {
+	background-color: #669900;
+}
+
+#main_column {
+	text-align: left;
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 20px;
+	border: 1px solid grey;
+	padding: 10px;
+}
+
+#submition_id {
+	margin-top: 40px;
+	margin-left: 100px;
+	color: white;
+	background-color: blue;
+	padding: 5px;
+	border: 1px solid blue;
+	margin-bottom: 30px;
+	width: 100px;
+}
+
+textarea {
+	width: 250px;
+	height: 100px;
+	padding: 5px;
+}
+
+label {
+	padding-top: 25px;
+}
+
+input {
+	width: 250px;
+}

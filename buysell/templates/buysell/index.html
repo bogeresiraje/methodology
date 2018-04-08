@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
+</head>
+
+<body class="bd">
+
+<div>
+</div>
+
+<div id="title">
+	<h1>PANDA</h1>
+	<br/>
+	<p>World's best site for selling and buying used and unused products</p>
+</div>
+
+<div id="footer"></div>
+
+
+<div id="wrapper">
+	<h2><a href="{% url 'buysell:signup' %}">SIGN UP</a></h2>
+	<form action="{% url 'buysell:login' %}" method="post" class="formclass">
+		{% csrf_token %}
+		<p>User Name</p>
+		<input type="text" name="inputUserName" size="30" />
+		<label for="inputUserName" id="error_label"><br/>{{ error_message }}</label>
+		<label for="inputUserName" id="error_label"><br/>{{ errors.empty_user_name }}</label>
+		<br/><br/><br/><br/>
+		<p>Password</p>
+		<input type="password" name="passWord" size="30" />
+		<label for="passWord" id="error_label"><br/>{{ error_password }}</label>
+		<label for="passWord" id="error_label"><br/>{{ errors.empty_password }}</label>
+		<br/><br/><br/>
+		<input type="submit" value="Log In" id="sub">
+	</form>
+	<h2><a href="{% url 'buysell:forgot_password' %}">FORGOT PASSWORD?</a></h2>
+</div>
+
+<div id="footer"></div>
+
+
+</body>
+
+</html>
