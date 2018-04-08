@@ -1,0 +1,16 @@
+textarea {
+	width: 430px;
+	height: 100px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+#send_id {
+	padding-top: 0;
+	margin-top: 10px;
+	color: white;
+	background-color: #006666;
+	padding: 5px;
+	border: 1px solid #006666;
+	margin-bottom: 30px;
+}

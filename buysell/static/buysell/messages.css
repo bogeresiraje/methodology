@@ -1,0 +1,41 @@
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #006666;
+}
+
+#messages {
+	background-color: #669900;
+}
+
+#messagewrapper a {
+	text-decoration: none;
+	color: black;
+}
+
+#messagewrapper li {
+	border: 1px solid #cccccc;
+	width: 425px;
+	text-align: left;
+	padding: 10px;
+	margin: 0 auto;
+	list-style-type: none;
+	background-color: white;
+}
+
+#messagewrapper {
+	margin-top: 30px;
+}
+
+#msg_container p {
+	padding: 5px;
+}
+
+#name {
+	color: #003366;
+	font-weight: bold;
+}
+
+#date {
+	color: #cc0066;
+}

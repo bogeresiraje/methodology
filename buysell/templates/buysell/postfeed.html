@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/postfeed.css' %}" media="screen">
+</head>
+
+<body class="bd">
+
+<div>
+	<div id="title">
+		<ul>
+			<li><span id="page_title">PANDA</span></li>
+			<li><a href="{% url 'buysell:postfeed' account.username %}"><span id="home">Home</span></a></li>
+			<li><a href="{% url 'buysell:buy' account.username %}"><span id="buy">Buy</span></a></li>
+			<li><a href="{% url 'buysell:sell' account.username %}"><span id="sell">Sell</span></a></li>
+			<li><a href="{% url 'buysell:messages' account.username %}"><span id="messages">Messages</span></a></li>
+			<li><a href="{% url 'buysell:following' account.username %}"><span id="following">Following</span></a></li>
+			<li><a href="{% url 'buysell:notifications' account.username %}"><span id="notifications">Notifications</span></a></li>
+		</ul>
+	</div>
+
+	<div id="wrapper">
+
+		<div id="leftbar">
+			<ul>
+				<li><a href="{% url 'buysell:search' account.username %}">Search</a></li>
+				<li><a href="">Refresh</a></li>
+				<li><a href="{% url 'buysell:my_activity' account.username %}">Activity</a></li>
+				<li><a href="{% url 'buysell:most_followed' account.username %}">Most Followed</a></li>
+				<li><a href="{% url 'buysell:categories' account.username %}">Categories</a></li>
+			</ul>
+		</div>
+
+		<div id="leftcontent">
+			<p id="sell_lot">Sell Lot</p>
+			<div id="postwrapper">
+				
+				<ul>{% for post in posts %}
+						{% if post.publisher.username == account.username %}
+							{% if post.post_identifier == 'sell' %}
+								<li id="sellwrapper"><p><span id="name_span">{{ post.publisher.username }}</span>
+									<span id="sell_span">	posted an item to sell: </span>
+									<span id="name_span">{{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.amount }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<img src="{{ post.photo.url }}" height="300" width="300"/>
+									<ul>
+										<br/>
+										<li><a href="">Comment</a></li>
+									</ul>
+								</li>
+							{% endif %}
+						{% else %}
+							{% if post.post_identifier == 'sell' %}
+								<li id="sellwrapper"><p><span id="name_span">{{ post.publisher.username }}</span>
+									<span id="sell_span">	posted an item to sell: </span>
+									<span id="name_span">{{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.amount }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<img src="{{ post.photo.url }}" height="300" width="300"/>
+									<ul>
+										<br/>
+										<li><a href="">Comment</a></li>
+										<li><a href="{% url 'buysell:write_message' account.username post.id post.post_identifier %}">Send Message</a></li>
+									</ul>
+								</li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</ul>
+				<div id="footer"></div>
+			</div>
+		</div>
+		<div id="rightcontent">
+			<p id="buy_lot">Buy Lot</p>
+			<div id="postwrapper">
+				<ul>{% for post in posts %}
+						{% if post.publisher.username == account.username %}
+							{% if post.post_identifier == 'buy' %}
+								<li id="buywrapper"><p><span id="name_span">{{ post.publisher.username }}</span><span id="buy_span"> posted an item to buy: </span> <span id="name_span"> on {{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.price }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<ul>
+										<li><a href="">Comment</a></li>
+									</ul>
+								</li>
+							{% endif %}
+						{% else %}
+							{% if post.post_identifier == 'buy' %}
+								<li id="buywrapper"><p><span id="name_span">{{ post.publisher.username }}</span><span id="buy_span"> posted an item to buy: </span> <span id="name_span"> on {{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.price }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<ul>
+										<li><a href="">Comment</a></li>
+										<li><a href="{% url 'buysell:write_message' account.username post.id post.post_identifier %}">Send Message</a></li>
+									</ul>
+								</li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</ul>
+				<div id="footer"></div>
+			</div>
+		</div>
+
+
+		<div id="rightbar">
+			<ul>
+				<li><a href="{% url 'buysell:my_account' account.username %}">My account</a></li>
+				<li><a href="{% url 'buysell:signup' %}">Create New Account</a></li>
+				<li><a href="{% url 'buysell:terms' account.username %}">Terms and conditions</a></li>
+				<li><a href="{% url 'buysell:feedback' account.username %}">Feed back</a></li>
+				<li><a href="{% url 'buysell:settings' account.username %}">Settings</a></li>
+				<li><a href="{% url 'buysell:index' %}">Log out</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+</body>
+</div>
+</html>

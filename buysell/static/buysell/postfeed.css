@@ -1,0 +1,201 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 0 auto;
+}
+
+#page_title {
+	margin-left: -270px;
+	padding-right: 100px;
+	color: white;
+	font-size: 2.5em;
+}
+
+#wrapper {
+	width: 1250px;
+	background-color: #cccccc;
+	height: 560px;
+	overflow: hidden;
+}
+
+#leftbar {
+	float: left;
+	width: 225px;
+	margin-top: 120px;
+	}
+
+#leftbar li {
+	text-align: left;
+	padding-bottom: 40px;
+	list-style-type: none;
+	margin-left: 40px;
+}
+
+#leftcontent {
+	width: 399px;
+	float: left;
+	background-color: white;
+	overflow: auto;
+	border-right: 1px solid grey;
+	height: 590px;
+	margin-top: 80px;
+}
+
+#rightcontent {
+	width: 399px;
+	float: left;
+	background-color: white;
+	overflow: auto;
+	border-left: 1px solid grey;
+	height: 590px;
+	margin-top: 80px;
+}
+
+#rightbar {
+	float: left;
+	width: 225px;
+	margin-top: 120px;
+}
+
+#rightbar li {
+	text-align: left;
+	list-style-type: none;
+	margin-left: 40px;
+	padding-bottom: 40px;
+}
+
+#title li {
+	display: inline;
+	text-decoration: none;
+}
+
+#title li a {
+	text-decoration: none;
+}
+
+#home:hover, #buy:hover, #sell:hover, #messages:hover, #following:hover,
+#notifications:hover {
+	background-color: #669900;
+}
+
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #006666;
+	color: yellow;
+}
+
+#home {
+	background-color: #669900;
+}
+
+#leftbar li a, 
+#rightbar li a {
+	text-decoration: none;
+	color: #cc0066;
+}
+
+#leftbar li a:hover, 
+#rightbar li a:hover {
+	text-decoration: none;
+	color: blue;
+}
+
+#sellwrapper li a {
+	text-decoration: none;
+	color: #006666;
+	margin-top: : 10px;
+}
+
+#buywrapper li a {
+	text-decoration: none;
+	color: blue;
+	margin-top: 10px;
+}
+
+#postwrapper {
+	margin-top: 30px;
+}
+
+#postwrapper li {
+	border: 1px solid #cccccc;
+	width: 300px;
+	text-align: left;
+	margin: 0 auto;
+	list-style-type: none;
+	padding: 20px;
+	background-color: white;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#buywrapper li {
+	color: blue;
+	display: inline;
+	border: none;
+	padding: 10px;
+	padding-right: 20px;
+}
+
+#sellwrapper li {
+	color: #006666;
+	display: inline;
+	border: none;
+	padding-right: 20px;
+}
+
+img {
+	padding: 10px;
+}
+
+#postwrapper li p {
+	padding: 10px;
+}
+
+span {
+	color: blue;
+}
+
+#sell_span {
+	color: #006666;
+}
+
+#name_span {
+	color: #cc0066;
+}
+
+#buy_span {
+	color: blue;
+}
+
+#sell_lot {
+	background-color: #006666;
+	color: white;
+	height: 28px;
+	padding: 5px;
+	margin-top: -40px;
+	position: fixed;
+	width: 390px;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+#buy_lot {
+	background-color: #003366;
+	color: white;
+	height: 28px;
+	padding: 5px;
+	margin-top: -40px;
+	position: fixed;
+	width: 390px;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+#footer {
+	height: 50px;
+}

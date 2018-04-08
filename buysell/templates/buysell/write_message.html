@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/postfeed.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/sell.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/activity.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/write_message.css' %}" media="screen">
+</head>
+
+<body class="bd">
+
+	<div id="title">
+		<h1>PANDA</h1><br/>
+		<ul>
+			<li>|</li>
+			<li><a href="{% url 'buysell:postfeed' account.username %}">Home</a></li>
+			<li>|</li>
+			<li><a href="{% url 'buysell:buy' account.username %}">Buy</a></li>
+			<li>|</li>
+			<li><a href="{% url 'buysell:sell' account.username %}">Sell</a></li>
+			<li>|</li>
+			<li><a href="">Inbox</a></li>
+			<li>|</li>
+			<li><a href="">Following</a></li>
+			<li>|</li>
+			<li><a href="">Notifications</a></li>
+			<li>|</li>
+		</ul>
+	</div>
+
+	<div id="wrapper">
+
+		<div id="leftbar">
+			<ul>
+				<li><a href="">Search</a></li>
+				<li><a href="">Refresh</a></li>
+				<li><a href="{% url 'buysell:my_activity' account.username %}">Activity</a></li>
+				<li><a href="">Most Followed</a></li>
+				<li><a href="">Categories</a></li>
+			</ul>
+		</div>
+
+		<div id="maincontent">
+			<div id="postwrapper">
+				<ul>
+					{% if post.post_identifier == 'sell' %}
+						<li id="sellwrapper">
+							<p><span id="name_span">{{ post.publisher.username }}</span><span id="sell_span"> posted an item to sell: </span> <span id="name_span">{{ post.date_posted }}</span></p>
+							<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
+							<p><strong>Description:</strong> {{ post.description }}</p>
+							<p><strong>Price:</strong> {{ post.price }}</p>
+							<p><strong>Location:</strong> {{ post.location }}</p>
+							<img src="{{ post.photo.url }}" height="300" width="300">
+							<ul>
+								<li><a href="">Comment</a></li>
+								<li><a href="{% url 'buysell:send_message' account.username post.id post.post_identifier %}">Send Message</a></li>
+							</ul>
+							<br/><br/>
+							<hr>
+							<form action="{% url 'buysell:send_message' account.username post.id post.post_identifier %}" method="post">
+								{% csrf_token %}
+								<p>write message to <span>{{ post.publisher.username }}</span>
+								<textarea name="text_message"></textarea>
+								<input type="submit" value="send" id="send_id">
+							</form>
+						</li>
+					{% else %}
+						<li id="buywrapper">
+							<p><span id="name_span">{{ post.publisher.username }}</span><span id="buy_span"> posted an item to sell: </span> <span id="name_span">{{ post.date_posted }}</span></p>
+							<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
+							<p><strong>Description:</strong> {{ post.description }}</p>
+							<p><strong>Price:</strong> {{ post.price }}</p>
+							<p><strong>Location:</strong> {{ post.location }}</p>
+							<ul>
+								<li><a href="">Comment</a></li>
+								<li><a href="{% url 'buysell:send_message' account.username post.id post.post_identifier %}">Send Message</a></li>
+							</ul>
+							<br/><br/>
+							<hr>
+							<form action="{% url 'buysell:send_message' account.username post.id post.post_identifier %}" method="post">
+								{% csrf_token %}
+								<p>write message to <span>{{ post.publisher.username }}</span>
+								<textarea name="text_message"></textarea>
+								<input type="submit" value="send" id="send_id">
+							</form>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+
+		<div id="rightbar">
+			<ul>
+				<li><a href="">My account</a></li>
+				<li><a href="{% url 'buysell:signup' %}">Create New Account</a></li>
+				<li><a href="">Terms and conditions</a></li>
+				<li><a href="">Feed back</a></li>
+				<li><a href="">Setting</a></li>
+				<li><a href="{% url 'buysell:index' %}">Log out</a></li>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<DOCTYPE! HTML>
+<html>
+
+<head>
+	{% load static %}
+	<link rel="stylesheet" id="fixed-width-wrapper" type="text/css" href="{% static 'buysell/signup.css' %}" media="screen">
+	<link rel="stylesheet" id="fixed-width-wrapper" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
+
+</head>
+
+<body class="bd">
+	<div ></div>
+
+	<div id="title" class="header">
+	<h1>PANDA</h1>
+	<br/>
+	<p>World's best site for selling and buying used and unused products</p>
+	</div>
+
+	<div id="myfooter"></div>
+
+	<div id="wrapper">
+		<form action="{% url 'buysell:confirm' %}" method="post" class="formclass">
+			{% csrf_token %}
+			<h2>Fill the form below to create an account</h2>
+			<p>Enter First Name</p>
+			<input type="text" id="input" name="inputFirstName" size="30" />
+			<label for="inputPassword" id="error_label"><br/>
+				{{ errors.error_first_name }}
+			</label>
+			<p>Enter Last Name</p>
+			<input type="text" id="input" name="inputLastName" size="30"/>
+			<label for="inputPassword" id="error_label"><br/>
+				{{ errors.error_last_name }}
+			</label>
+			<p>Enter User Name</p>
+			<input type="text" id="input" name="inputUserName" size="30"/>
+			<label for="inputPassword" id="error_label"><br/>
+				{{ errors.error_user_name }}
+			</label>
+			<p>Enter E-mail</p>
+			<input type="text" id="input" name="inputEmail" size="30"/>
+			<label for="inputPassword" id="error_label"><br/>
+				{{ errors.error_email }}
+			</label>
+			<p>Enter Password</p>
+			<input type="password" id="input" name="inputPass" size="30"/>
+			<label for="inputPassword" id="error_label"><br/>
+				{{ errors.error_first_password }}
+			</label>
+			<p>Enter Password Again</p>
+			<input type="password" name="inputPassword" size="30"/>		
+			<label for="inputPassword" id="error_label"><br/>
+				{{ error_password }}
+				{{ errors.error_second_password}}
+			</label>
+			<br/><br/>
+			<input type="submit" value="Submit" id="sub">
+		</form>
+		<div id="myfooter"></div>
+	</div>
+
+</body>
+
+</html>
