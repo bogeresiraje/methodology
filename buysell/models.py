@@ -14,8 +14,8 @@ class Account(models.Model):
 class Sellpost(models.Model):
 	publisher = models.ForeignKey(Account, on_delete=models.CASCADE)
 	item = models.CharField(max_length=200)
-	date_posted = models.DateTimeField('date published')
 	description = models.CharField(max_length=255)
+	date_posted = models.DateTimeField('date published')
 	amount = models.CharField(max_length=200)
 	photo = models.FileField(upload_to='documents/')
 	location = models.CharField(max_length=200)
@@ -23,28 +23,50 @@ class Sellpost(models.Model):
 
 class Buypost(models.Model):
 	publisher = models.ForeignKey(Account, on_delete=models.CASCADE)
-	name = models.CharField(max_length=200)
+	item = models.CharField(max_length=200)
 	description = models.CharField(max_length=200)
 	price = models.CharField(max_length=200)
 	location = models.CharField(max_length=200)
 	date_posted = models.DateTimeField('Posted date')
-	time_diff = models.IntegerField(default=0)
 	post_identifier = 'buy'
 
 class Sent(models.Model):
 	publisher = models.ForeignKey(Account, on_delete=models.CASCADE)
 	text = models.CharField(max_length=200)
-	time = models.DateTimeField('time sent')
+	date_posted = models.DateTimeField('time sent')
 	message_identifier = "outbox"
 	#user name of the person receiving the message
 	name = models.CharField(max_length=200)
-	post_identifier = models.IntegerField(blank=True)
+	msg_identifier = 'sent'
 
 class Received(models.Model):
 	publisher = models.ForeignKey(Account, on_delete=models.CASCADE)
 	text = models.CharField(max_length=200)
-	time = models.DateTimeField('time sent')
+	date_posted = models.DateTimeField('time sent')
 	message_identifier = "inbox"
 	#user name of the person who sent the message
 	name = models.CharField(max_length=200)
-	post_identifier = models.IntegerField(blank=True)
+	msg_identifier = 'received'
+
+class Followed(models.Model):
+	user = models.ForeignKey(Account, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	pub_time = models.DateTimeField("date added")
+
+class Notifications(models.Model):
+	user = models.ForeignKey(Account, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100)
+	identifier = models.CharField(max_length=100)
+	date_posted = models.DateTimeField('time notified')
+
+class Sellcomment(models.Model):
+	post = models.ForeignKey(Sellpost, on_delete=models.CASCADE)
+	text = models.CharField(max_length=200)
+	publisher = models.CharField(max_length=100, default='')
+	date_posted = models.DateTimeField('date commented')
+
+class Buycomment(models.Model):
+	post = models.ForeignKey(Buypost, on_delete=models.CASCADE)
+	text = models.CharField(max_length=200)
+	publisher = models.CharField(max_length=100, default='')
+	date_posted = models.DateTimeField('date commented')

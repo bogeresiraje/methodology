@@ -1,3 +1,13 @@
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #660000;
+}
+
+#messages {
+	background-color: #b30059;
+}
+
 textarea {
 	width: 430px;
 	height: 100px;
@@ -13,4 +23,93 @@ textarea {
 	padding: 5px;
 	border: 1px solid #006666;
 	margin-bottom: 30px;
+}
+
+#messagewrapper ul {
+	border: 1px solid #cccccc;
+	width: 350px;
+	margin: 0 auto;
+	list-style-type: none;
+	background-color: white;
+}
+
+#messagewrapper li {
+	padding: 10px;
+}
+
+#messagewrapper li p {
+	padding: 2px;
+	margin: 2px;
+}
+
+#sentwrapper {
+	width: 300px
+}
+
+#clear {
+	width: 100px;
+	float: left;
+}
+
+#sent {
+	width: 200px;
+	float: left;
+}
+
+#msg_sent {
+	text-align: right;
+	border: 1px solid #cccccc;
+	width: 200px;
+	background-color: #cccccc;
+	margin-left: 110px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#msg_received {
+	text-align: left;
+	border: 1px solid #cccccc;
+	width: 200px;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#received_span {
+	font-weight: bold;
+}
+
+#sent_span {
+	color: #003366;
+	font-weight: bold;
+}
+
+h2 {
+	text-align: center;
+	padding: 5px;
+	background-color: #b30059;
+	color: white;
+	position: fixed;
+	width: 340px;
+}
+
+textarea {
+	width: 300px;
+}
+
+input {
+	background-color: #003366;
+	color: white;
+	padding: 3px 7px;
+	border: 1px solid #003366;
+	margin: 10px;
+	margin-left: 250px;
+}
+
+form p {
+	margin-top: 30px;
+	margin-bottom: -3px;
+	text-align: left;
+	margin-left: 20px;
+	color: #003366;
 }

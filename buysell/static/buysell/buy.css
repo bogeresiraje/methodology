@@ -1,11 +1,11 @@
 #home, #buy, #sell, #messages, #following,
 #notifications {
 	padding: 13px 30px;
-	background-color: #006666;
+	background-color: #660000;
 }
 
 #buy {
-	background-color: #669900;
+	background-color: #b30059;
 }
 
 #main_column {
@@ -21,9 +21,9 @@
 	margin-top: 40px;
 	margin-left: 100px;
 	color: white;
-	background-color: blue;
+	background-color: #b30059;
 	padding: 5px;
-	border: 1px solid blue;
+	border: 1px solid #b30059;
 	margin-bottom: 30px;
 	width: 100px;
 }

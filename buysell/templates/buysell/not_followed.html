@@ -5,7 +5,10 @@
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/postfeed.css' %}" media="screen">
-	<link rel="stylesheet" type="text/css" href="{% static 'buysell/notifications.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/following.css' %}" media="screen">
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/not_followed.css' %}" media="screen">
+
+
 </head>
 
 <body class="bd">
@@ -43,7 +46,7 @@
 			</ul>
 		</div>
 
-		<div id="leftcontent">
+			<div id="leftcontent">
 			<p id="sell_lot">General Lot</p>
 			<div id="postwrapper">
 					<ul>{% for post in posts %}
@@ -76,7 +79,7 @@
 						{% else %}
 							{% if post.post_identifier == 'buy' %}
 								<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
-									posted an item to buy: <span id="buy_span"> on {{ post.date_posted }}</span></p>
+									posted an item to buy: <span id="buy_span">{{ post.date_posted }}</span></p>
 									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 									<p><strong>Description:</strong> {{ post.description }}</p>
 									<p><strong>Price:</strong> {{ post.price }}</p>
@@ -96,7 +99,7 @@
 									<p><strong>Location:</strong> {{ post.location }}</p>
 									<img src="{{ post.photo.url }}" height="300" width="300">
 									<ul>
-										<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+										<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comment</a></li>
 										<li><a href="{% url 'buysell:write_message' account.username 'messages' post.publisher.username %}">Send Message</a></li>
 									</ul>
 								</li>
@@ -108,29 +111,22 @@
 			</div>
 		</div>
 		<div id="rightcontent">
-			<p id="buy_lot">Notifications</p>
-			<div id="notificationwrapper">
-				{% for notification in my_notifications %}
-					<ul>
-						{% if notification.identifier == 'follow' %}
-							<li><p><a href="{% url 'buysell:write_message' account.username 'messages' notification.name %}">
-							<span id="name">{{ notification.name }}</span> followed you</a></p>
-								<p>{{ notification.date_posted }}</p>
-							</li>
-						{% elif notification.identifier == 'message' %}
-							<li><p><a href="{% url 'buysell:write_message' account.username 'messages' notification.name %}">
-							<span id="name">{{ notification.name }}</span> sent you a message</a></p>
-								<p>{{ notification.date_posted }}</p>
-							</li>
-						{% else %}
-							<li>
-								<p><a href="{% url 'buysell:write_message' account.username 'messages' notification.name %}">
-								<span id="name">{{ notification.name }}</span> commented on your post</a></p>
-								<p>{{ notification.date_posted }}</p>
-							</li>
-						{% endif %}
-					</ul>
-				{% endfor %}
+			<p id="buy_lot">Favorites</p>
+			<div id="headers">
+				<a href="{% url 'buysell:following' account.username %}"><div id="followed">People you follow</div></a>
+				<div id="not_followed">Add new people</div>
+			</div>
+			<div id="content">
+				<form action="{% url 'buysell:follow' account.username %}" method="post">
+					{% csrf_token %}
+					<div id="nonfollowed_users">
+						{% for user in not_followed_users %}
+							<input type="radio" name="follow" value="{{ user }}" />
+							<label for="user"><span id="follow_label">{{ user }}</span></label><br/>
+						{% endfor %}
+					</div>
+						<input type="submit" id="submition_button" value="Add"/>
+				</form>
 			</div>
 		</div>
 

@@ -1,0 +1,59 @@
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #660000;
+}
+
+#following {
+	background-color: #b30059;
+}
+
+#headers {
+	width: 399px;
+	position: fixed;
+	overflow: hidden;
+}
+
+#followed {
+	width: 179px;
+	border-right: 1px solid white;
+	float: left;
+	padding: 10px;
+	color: black;
+	font-weight: bold;
+}
+
+#not_followed {
+	width: 179px;
+	float: left;
+	background-color: #b30059;
+	color: white;
+	padding: 10px;
+	font-weight: bold;
+}
+
+#content {
+	margin-top: 50px;
+	text-align: left;
+	margin-left: 40px;
+	overflow: auto;
+}
+
+#content p {
+	text-align: center;
+	margin-top: 200px;
+	color: #555555;
+}
+
+#content li {
+	color: #555555;
+	padding: 10px;
+}
+
+#content a {
+	text-decoration: none;
+}
+
+#content a:hover {
+	color: blue;
+}

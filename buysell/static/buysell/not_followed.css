@@ -1,0 +1,47 @@
+#not_followed {
+	width: 179px;
+	float: left;
+	padding: 10px;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+}
+
+#followed {
+	width: 179px;
+	float: left;
+	background-color: #b30059;
+	border-right: 1px solid white;
+	color: white;
+	padding: 10px;
+	font-weight: bold;
+}
+
+#content {
+	margin-top: 50px;
+	text-align: left;
+	margin-left: 30px;
+	overflow: auto;
+}
+
+#follow_label {
+	color: #555555;
+}
+
+input {
+	margin-top: 10px;
+}
+
+#nonfollowed_users {
+	height: 390px;
+	overflow: auto;
+}
+
+#submition_button {
+	margin-left: 250px;
+	width: 100px;
+	background-color: #b30059;
+	color: white;
+	padding: 5px;
+	border: 1px solid #b30059;
+}

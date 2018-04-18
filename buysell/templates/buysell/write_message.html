@@ -5,35 +5,35 @@
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/postfeed.css' %}" media="screen">
-	<link rel="stylesheet" type="text/css" href="{% static 'buysell/sell.css' %}" media="screen">
-	<link rel="stylesheet" type="text/css" href="{% static 'buysell/activity.css' %}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/write_message.css' %}" media="screen">
 </head>
 
 <body class="bd">
 
-	<div id="title">
-		<h1>PANDA</h1><br/>
+<div id="title">
 		<ul>
-			<li>|</li>
-			<li><a href="{% url 'buysell:postfeed' account.username %}">Home</a></li>
-			<li>|</li>
-			<li><a href="{% url 'buysell:buy' account.username %}">Buy</a></li>
-			<li>|</li>
-			<li><a href="{% url 'buysell:sell' account.username %}">Sell</a></li>
-			<li>|</li>
-			<li><a href="">Inbox</a></li>
-			<li>|</li>
-			<li><a href="">Following</a></li>
-			<li>|</li>
-			<li><a href="">Notifications</a></li>
-			<li>|</li>
+			<li><span id="page_title">PANDA</span></li>
+			<li><a href="{% url 'buysell:postfeed' account.username %}"><span id="home">Home</span></a></li>
+			<li><a href="{% url 'buysell:buy' account.username %}"><span id="buy">Buy</span></a></li>
+			<li><a href="{% url 'buysell:sell' account.username %}"><span id="sell">Sell</span></a></li>
+			<li><a href="{% url 'buysell:messages' account.username %}"><span id="messages">Messages</span></a></li>
+			<li><a href="{% url 'buysell:following' account.username %}"><span id="following">Following</span></a></li>
+			<li><a href="{% url 'buysell:notifications' account.username %}"><span id="notifications">Notifications</span></a></li>
 		</ul>
 	</div>
 
 	<div id="wrapper">
 
 		<div id="leftbar">
+		<h1>recent</h1>
+			<div id="recentwrapper">
+				{% if recent_post %}
+					<img src="{{ recent_post.photo.url }}" width="170" height="220" /><br/>
+					<a href=""><p><span id="visit">visit</span></p></a>
+				{% else %}
+					<p><span id="sell_span">No recent post</span></p>
+				{% endif %}
+			</div>
 			<ul>
 				<li><a href="">Search</a></li>
 				<li><a href="">Refresh</a></li>
@@ -43,56 +43,113 @@
 			</ul>
 		</div>
 
-		<div id="maincontent">
+		<div id="leftcontent">
+			<p id="sell_lot">General Lot</p>
 			<div id="postwrapper">
-				<ul>
-					{% if post.post_identifier == 'sell' %}
-						<li id="sellwrapper">
-							<p><span id="name_span">{{ post.publisher.username }}</span><span id="sell_span"> posted an item to sell: </span> <span id="name_span">{{ post.date_posted }}</span></p>
-							<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
-							<p><strong>Description:</strong> {{ post.description }}</p>
-							<p><strong>Price:</strong> {{ post.price }}</p>
-							<p><strong>Location:</strong> {{ post.location }}</p>
-							<img src="{{ post.photo.url }}" height="300" width="300">
-							<ul>
-								<li><a href="">Comment</a></li>
-								<li><a href="{% url 'buysell:send_message' account.username post.id post.post_identifier %}">Send Message</a></li>
-							</ul>
-							<br/><br/>
-							<hr>
-							<form action="{% url 'buysell:send_message' account.username post.id post.post_identifier %}" method="post">
-								{% csrf_token %}
-								<p>write message to <span>{{ post.publisher.username }}</span>
-								<textarea name="text_message"></textarea>
-								<input type="submit" value="send" id="send_id">
-							</form>
-						</li>
-					{% else %}
-						<li id="buywrapper">
-							<p><span id="name_span">{{ post.publisher.username }}</span><span id="buy_span"> posted an item to sell: </span> <span id="name_span">{{ post.date_posted }}</span></p>
-							<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
-							<p><strong>Description:</strong> {{ post.description }}</p>
-							<p><strong>Price:</strong> {{ post.price }}</p>
-							<p><strong>Location:</strong> {{ post.location }}</p>
-							<ul>
-								<li><a href="">Comment</a></li>
-								<li><a href="{% url 'buysell:send_message' account.username post.id post.post_identifier %}">Send Message</a></li>
-							</ul>
-							<br/><br/>
-							<hr>
-							<form action="{% url 'buysell:send_message' account.username post.id post.post_identifier %}" method="post">
-								{% csrf_token %}
-								<p>write message to <span>{{ post.publisher.username }}</span>
-								<textarea name="text_message"></textarea>
-								<input type="submit" value="send" id="send_id">
-							</form>
-						</li>
-					{% endif %}
+					<ul>{% for post in posts %}
+						{% if post.publisher.username == account.username %}
+							{% if post.post_identifier == 'buy' %}
+								<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
+								 posted an item to buy: <span id="name_span">{{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.price }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<ul>
+										<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+									</ul>
+								</li>
+							{% else %}
+								<li id="sellwrapper"><p><span id="sell_span">{{ post.publisher.username }}</span>
+									 posted an item to sell: 
+									<span id="sell_span">{{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.amount }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<img src="{{ post.photo.url }}" height="300" width="300">
+									<ul>
+										<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+									</ul>
+								</li>
+							{% endif %}
+						{% else %}
+							{% if post.post_identifier == 'buy' %}
+								<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
+								 	posted an item to buy: <span id="buy_span">{{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.price }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<ul>
+										<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+										<li><a href="{% url 'buysell:write_message' account.username 'messages' post.publisher.username %}">Send Message</a></li>
+									</ul>
+								</li>
+							{% else %}
+								<li id="sellwrapper"><p><span id="sell_span">{{ post.publisher.username }}</span>
+									 posted an item to sell: 
+									<span id="sell_span">{{ post.date_posted }}</span></p>
+									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+									<p><strong>Description:</strong> {{ post.description }}</p>
+									<p><strong>Price:</strong> {{ post.amount }}</p>
+									<p><strong>Location:</strong> {{ post.location }}</p>
+									<img src="{{ post.photo.url }}" height="300" width="300">
+									<ul>
+										<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+										<li><a href="{% url 'buysell:write_message' account.username 'messages' post.publisher.username %}">Send Message</a></li>
+									</ul>
+								</li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
 				</ul>
+				<div id="footer"></div>
+			</div>
+		</div>
+		<div id="rightcontent">
+			<p id="buy_lot">Messages</p>
+			<div id="messagewrapper">
+				<ul><h2>{{ message_receiver }}</h2>
+					<form action="{% url 'buysell:send_message' account.username 'messages' message_receiver %}" method="post">
+						{% csrf_token %}
+						<p><strong>Write Message</strong></p>
+						<textarea name="text_message"></textarea>
+						<input type="submit" value="send">
+					</form>
+					{% for message in messages %}
+						{% if message.msg_identifier == 'sent' %}
+							<li id="msg_sent">
+								<p><span id="sent_span">{{ message.text }}</span></p>
+								<p><span id="date">{{ message.date_posted }}</span></p>
+							</li>
+						{% else %}
+							<li id="msg_received">
+								<p><span id="received_span">{{ message.text }}</span></p>
+								<p><span id="date">{{ message.date_posted }}</span></p>		
+							</li>
+						{% endif %}
+					{% endfor %}
+
+				</ul>
+				<div id="footer"></div>
 			</div>
 		</div>
 
 		<div id="rightbar">
+			<h1>recommended</h1>
+			<div id="recommendedwrapper">
+				{% if not recommended %}
+					<p><span id="sell_span">No recommedations</span></p>
+				{% else %}
+					<ul>
+						{% for product in recommended %}
+							<li><a href="">{{ product.item }}</a></li>
+						{% endfor %}
+					</ul>
+					<a href=""><p><span id="refresh">refresh</span><p></a>
+				{% endif %}
+			</div>
 			<ul>
 				<li><a href="">My account</a></li>
 				<li><a href="{% url 'buysell:signup' %}">Create New Account</a></li>

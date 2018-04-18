@@ -5,16 +5,16 @@
 
 .bd {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: #000000;
 	text-align: center;
-	font-size: 90%;
-	background-color: #cccccc;
+	background-color: #eeeeee;
+	color: #333333;
+	font-size: 80%;
 }
 
 #title {
 	padding-top: 10px;
 	padding-bottom: 10px;
-	background-color: #006666;
+	background-color: #660000;
 	text-align: center;
 	color: white;
 	position: fixed;

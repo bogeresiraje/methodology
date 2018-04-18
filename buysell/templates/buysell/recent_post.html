@@ -108,30 +108,6 @@
 			</div>
 		</div>
 		<div id="rightcontent">
-			<p id="buy_lot">Notifications</p>
-			<div id="notificationwrapper">
-				{% for notification in my_notifications %}
-					<ul>
-						{% if notification.identifier == 'follow' %}
-							<li><p><a href="{% url 'buysell:write_message' account.username 'messages' notification.name %}">
-							<span id="name">{{ notification.name }}</span> followed you</a></p>
-								<p>{{ notification.date_posted }}</p>
-							</li>
-						{% elif notification.identifier == 'message' %}
-							<li><p><a href="{% url 'buysell:write_message' account.username 'messages' notification.name %}">
-							<span id="name">{{ notification.name }}</span> sent you a message</a></p>
-								<p>{{ notification.date_posted }}</p>
-							</li>
-						{% else %}
-							<li>
-								<p><a href="{% url 'buysell:write_message' account.username 'messages' notification.name %}">
-								<span id="name">{{ notification.name }}</span> commented on your post</a></p>
-								<p>{{ notification.date_posted }}</p>
-							</li>
-						{% endif %}
-					</ul>
-				{% endfor %}
-			</div>
 		</div>
 
 

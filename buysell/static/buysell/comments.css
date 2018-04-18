@@ -1,0 +1,46 @@
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #660000;
+}
+
+textarea {
+	width: 300px;
+	height: 100px;
+	padding: 5px;
+}
+
+input {
+	background-color: #003366;
+	color: white;
+	padding: 3px;
+	border: 1px solid #003366;
+	margin: 10px;
+	margin-left: 230px;
+}
+
+#text_header {
+	font-weight: bold;
+	color: #003366;
+	padding-top: 10px;
+}
+
+form p {
+	margin-top: 10px;
+}
+
+#sellwrapper li p {
+	padding-bottom: 10px;
+}
+
+#comment_publisher {
+	color: #003366;
+}
+
+#comment_text {
+	color: #333333;
+}
+
+#comment_date {
+	color: #b30059;
+}

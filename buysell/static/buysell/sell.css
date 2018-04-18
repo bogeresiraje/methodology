@@ -1,32 +1,44 @@
-#main {
+#home, #buy, #sell, #messages, #following,
+#notifications {
+	padding: 13px 30px;
+	background-color: #660000;
+	color: yellow;
+}
+
+#sell {
+	background-color: #b30059;
+}
+
+#main_column {
 	text-align: left;
-	width: 450px;
+	width: 300px;
 	margin: 0 auto;
-}
-
-#main p {
-	font-size: 1.5em;
-	color: #006666;
-	text-align: center;
-	padding-top: 10px;
-}
-
-label {
-	display: block;
-	padding-top: 25px;
-}
-
-#submit_id {
-	margin-top: 60px;
-	margin-left: 200px;
-	color: white;
-	background-color: #006666;
-	padding: 5px;
-	border: 1px solid #006666;
-	margin-bottom: 30px;
+	margin-top: 20px;
+	border: 1px solid grey;
+	padding: 10px;
 }
 
 textarea {
-	width: 500px;
+	width: 250px;
 	height: 100px;
+	padding: 5px;
+}
+
+label {
+	padding-top: 25px;
+}
+
+input {
+	width: 250px;
+}
+
+#submition_id {
+	margin-top: 10px;
+	margin-left: 100px;
+	color: white;
+	background-color: #b30059;
+	padding: 5px;
+	border: 1px solid #b30059;
+	margin-bottom: 30px;
+	width: 100px;
 }

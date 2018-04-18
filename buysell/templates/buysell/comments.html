@@ -5,8 +5,7 @@
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/index.css' %}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{% static 'buysell/postfeed.css' %}" media="screen">
-	<link rel="stylesheet" type="text/css" href="{% static 'buysell/activity.css' %}" media="screen">
-
+	<link rel="stylesheet" type="text/css" href="{% static 'buysell/comments.css' %}" media="screen">
 </head>
 
 <body class="bd">
@@ -29,7 +28,8 @@
 			<h1>recent</h1>
 			<div id="recentwrapper">
 				{% if recent_post %}
-					<img src="{{ recent_post.photo.url }}" width="170" height="220" /><br/>
+					
+					<img src="{{ recent_post.photo.url }}" width="170" height="200" /><br/>
 					<a href=""><p><span id="visit">visit</span></p></a>
 				{% else %}
 					<p><span id="sell_span">No recent post</span></p>
@@ -51,7 +51,7 @@
 						{% if post.publisher.username == account.username %}
 							{% if post.post_identifier == 'buy' %}
 								<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
-									posted an item to buy: <span id="buy_span"> on {{ post.date_posted }}</span></p>
+								 posted an item to buy: <span id="name_span">{{ post.date_posted }}</span></p>
 									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 									<p><strong>Description:</strong> {{ post.description }}</p>
 									<p><strong>Price:</strong> {{ post.price }}</p>
@@ -62,7 +62,7 @@
 								</li>
 							{% else %}
 								<li id="sellwrapper"><p><span id="sell_span">{{ post.publisher.username }}</span>
-									posted an item to sell: 
+									 posted an item to sell: 
 									<span id="sell_span">{{ post.date_posted }}</span></p>
 									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 									<p><strong>Description:</strong> {{ post.description }}</p>
@@ -77,7 +77,7 @@
 						{% else %}
 							{% if post.post_identifier == 'buy' %}
 								<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
-									posted an item to buy: <span id="buy_span"> on {{ post.date_posted }}</span></p>
+								 	posted an item to buy: <span id="buy_span">{{ post.date_posted }}</span></p>
 									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 									<p><strong>Description:</strong> {{ post.description }}</p>
 									<p><strong>Price:</strong> {{ post.price }}</p>
@@ -89,7 +89,7 @@
 								</li>
 							{% else %}
 								<li id="sellwrapper"><p><span id="sell_span">{{ post.publisher.username }}</span>
-									posted an item to sell: 
+									 posted an item to sell: 
 									<span id="sell_span">{{ post.date_posted }}</span></p>
 									<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 									<p><strong>Description:</strong> {{ post.description }}</p>
@@ -109,36 +109,140 @@
 			</div>
 		</div>
 		<div id="rightcontent">
-			<p id="buy_lot">My Activity</p>
+			<p id="buy_lot">Comments</p>
 			<div id="postwrapper">
 				<ul>
-					{% for post in my_posts %}
+					{% if post.publisher.username == account.username %}
 						{% if post.post_identifier == 'buy' %}
-							<li id="buywrapper"><p><span id="buy_span">You</span>
+							<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
+								posted an item to buy: <span id="name_span">{{ post.date_posted }}</span></p>
+								<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+								<p><strong>Description:</strong> {{ post.description }}</p>
+								<p><strong>Price:</strong> {{ post.price }}</p>
+								<p><strong>Location:</strong> {{ post.location }}</p>
+								<ul>
+									<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+								</ul>
+								<br/>
+								<hr/>
+								<form action="{% url 'buysell:write_comment' account.username post.post_identifier post.id %}" 
+								method="post">
+									{% csrf_token %}
+									<p><span id="text_header">write comment</span></p>
+									<textarea name="text"></textarea>
+									<input type="submit" value="comment">
+								</form>
+								<ul>
+									{% for comment in comments %}
+									<li>
+										<p><span id="comment_publisher">{{ comment.publisher }}</span></p>
+										<p><span id="comment_text">{{ comment.text }}</span></p>
+										<p id="date"><span id="comment_date">{{ comment.date_posted }}</span><br/></p>
+									</li>
+									{% endfor %}
+								</ul>
+							</li>
+						{% else %}
+							<li id="sellwrapper"><p><span id="sell_span">{{ post.publisher.username }}</span>
+								posted an item to sell: 
+								<span id="sell_span">{{ post.date_posted }}</span></p>
+								<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
+								<p><strong>Description:</strong> {{ post.description }}</p>
+								<p><strong>Price:</strong> {{ post.amount }}</p>
+								<p><strong>Location:</strong> {{ post.location }}</p>
+								<img src="{{ post.photo.url }}" height="300" width="300">
+								<ul>
+									<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">
+									Comments</a></li>
+								</ul>
+								<br/>
+								<hr/>
+								<form action="{% url 'buysell:write_comment' account.username post.post_identifier post.id %}" 
+								method="post">
+									{% csrf_token %}
+									<p><span id="text_header">write comment</span></p>
+									<textarea name="text"></textarea>
+									<input type="submit" value="comment">
+								</form>
+								<ul>
+									{% for comment in comments %}
+									<li>
+										<p><span id="comment_publisher">{{ comment.publisher }}</span></p>
+										<p><span id="comment_text">{{ comment.text }}</span></p>
+										<p id="date"><span id="comment_date">{{ comment.date_posted }}</span><br/></p>
+									</li>
+									{% endfor %}
+								</ul>
+							</li>
+						{% endif %}
+					{% else %}
+						{% if post.post_identifier == 'buy' %}
+							<li id="buywrapper"><p><span id="buy_span">{{ post.publisher.username }}</span>
 								posted an item to buy: <span id="buy_span">{{ post.date_posted }}</span></p>
-								<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
+								<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 								<p><strong>Description:</strong> {{ post.description }}</p>
 								<p><strong>Price:</strong> {{ post.price }}</p>
 								<p><strong>Location:</strong> {{ post.location }}</p>
 								<ul>
 									<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">
 									Comments</a></li>
+									<li><a href="{% url 'buysell:write_message' account.username 'messages' post.publisher.username %}">Send Message</a></li>
+								</ul>
+								<br/>
+								<hr/>
+								<form action="{% url 'buysell:write_comment' account.username post.post_identifier post.id %}" 
+								method="post">
+									{% csrf_token %}
+									<p><span id="text_header">write comment</span></p>
+									<textarea name="text"></textarea>
+									<input type="submit" value="comment">
+								</form>
+								<ul>
+									{% for comment in comments %}
+									<li>
+										<p><span id="comment_publisher">{{ comment.publisher }}</span></p>
+										<p><span id="comment_text">{{ comment.text }}</span></p>
+										<p id="date"><span id="comment_date">{{ comment.date_posted }}</span><br/></p>
+									</li>
+									{% endfor %}
 								</ul>
 							</li>
 						{% else %}
-							<li id="sellwrapper"><p><span id="sell_span">You</span>
-								posted an item to sell: <span id="sell_span">{{ post.date_posted }}</span></p>
-								<p><strong>Item:</strong> <em>{{ post.name }}</em></p>
+							<li id="sellwrapper"><p><span id="sell_span">{{ post.publisher.username }}</span>
+								posted an item to sell: 
+								<span id="sell_span">{{ post.date_posted }}</span></p>
+								<p><strong>Item:</strong> <em>{{ post.item }}</em></p>
 								<p><strong>Description:</strong> {{ post.description }}</p>
-								<p><strong>Price:</strong> {{ post.price }}</p>
+								<p><strong>Price:</strong> {{ post.amount }}</p>
 								<p><strong>Location:</strong> {{ post.location }}</p>
 								<img src="{{ post.photo.url }}" height="300" width="300">
 								<ul>
-									<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">Comments</a></li>
+									<li><a href="{% url 'buysell:comments' account.username post.post_identifier post.id %}">
+									Comments</a></li>
+									<li><a href="{% url 'buysell:write_message' account.username 'messages' post.publisher.username %}">Send Message</a></li>
+								</ul>
+								<br/>
+								<hr/>
+								<form action="{% url 'buysell:write_comment' account.username post.post_identifier post.id %}" 
+								method="post">
+									{% csrf_token %}
+									<p><span id="text_header">write comment</span></p>
+									<textarea name="text"></textarea>
+									<input type="submit" value="comment">
+								</form>
+								<ul>
+									{% for comment in comments %}
+									<li>
+										<p><span id="comment_publisher">{{ comment.publisher }}</span></p>
+										<p><span id="comment_text">{{ comment.text }}</span></p>
+										<p id="date"><span id="comment_date">{{ comment.date_posted }}</span><br/></p>
+									</li>
+									{% endfor %}
 								</ul>
 							</li>
 						{% endif %}
-				{% endfor %}
+					{% endif %}
+				</ul>
 			</div>
 			<div id="footer"></div>
 		</div>
